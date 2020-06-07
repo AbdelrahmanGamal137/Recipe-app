@@ -1,16 +1,19 @@
 package com.recipe.demo.services;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.stereotype.Service;
 
 import com.recipe.demo.domain.Recipe;
 import com.recipe.demo.repositories.RecipeRepository;
 
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by jt on 6/13/17.
+ */
 @Service
 public class RecipeServiceImpl implements RecipeService {
-	
+
     private final RecipeRepository recipeRepository;
 
     public RecipeServiceImpl(RecipeRepository recipeRepository) {
@@ -18,11 +21,9 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    
     public Set<Recipe> getRecipes() {
         Set<Recipe> recipeSet = new HashSet<>();
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
         return recipeSet;
     }
-
 }

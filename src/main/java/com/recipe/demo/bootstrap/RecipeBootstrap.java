@@ -1,15 +1,8 @@
 package com.recipe.demo.bootstrap;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.demo.domain.Category;
 import com.recipe.demo.domain.Difficulty;
@@ -21,13 +14,18 @@ import com.recipe.demo.repositories.CategoryRepository;
 import com.recipe.demo.repositories.RecipeRepository;
 import com.recipe.demo.repositories.UnitOfMeasureRepository;
 
-import lombok.extern.slf4j.Slf4j;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-@Slf4j
+/**
+ * Created by jt on 6/13/17.
+ */
 @Component
-public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent>{
+public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
-	private final CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
@@ -38,10 +36,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
-    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
-        log.debug("Loading bootstrap data");
     }
 
     private List<Recipe> getRecipes() {
